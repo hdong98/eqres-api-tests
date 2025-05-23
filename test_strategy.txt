@@ -1,0 +1,37 @@
+Test Strategy and Reasoning
+
+The objective of this test suite is to thoroughly validate the user management REST API provided by ReqRes (https://reqres.in). The API includes common CRUD operations on user resources, and the test strategy aims to ensure each API requrests is correct. With limited time, performance, end to end tests are not covered.
+
+1. Test Coverage
+Positive Tests: Verify that all supported operations (GET, POST, PUT, DELETE) succeed with valid inputs and produce the expected outputs and HTTP status codes.
+
+Negative Tests: Check how the API handles invalid inputs, such as missing required fields, or operations on non-existent resources (e.g., updating or deleting a user ID that does not exist).
+
+Edge Cases: Include boundary tests such as very large input values (e.g., 256-character strings) and duplicate operations (e.g., deleting the same user twice).
+
+Data Validation: Confirm that the API correctly returns errors or handles unexpected input when required fields are missing or extra fields are provided.
+
+2. Test Design
+Modular and Reusable Code: Common code such as base URLs, endpoints, headers, and request functions are placed in a dedicated library directory (lib) to avoid duplication and ease maintenance.
+
+Parametrization: Test cases use pytest.mark.parametrize to test multiple input variations without code repetition, improving readability and extensibility.
+
+Separation of Positive and Negative Tests: To improve clarity and debugging, positive and negative scenarios are organized separately.
+
+Logging: Detailed logging is integrated to capture request/response data and timings for better observability.
+
+Response Time Checks (Bonus): Performance is partially monitored by asserting that each request responds within a reasonable time threshold (e.g., 1 second).
+
+3. Reporting
+HTML and JSON Reports: Tests generate both HTML and JSON reports.
+
+CI Integration: A yanl file is added forbasic GitHub Action.
+
+4. Reasoning
+Robustness: Including negative and edge case tests helps reveal how well the API handles unexpected or invalid usage, reducing potential bugs in real-world applications.
+
+Maintainability: By centralizing configuration and common logic, the test suite is easier to update if the API changes.
+
+Scalability: Parametrized tests allow quick addition of new test cases as the API evolves.
+
+Performance Awareness: Measuring response time early can help detect regressions or performance bottlenecks.
